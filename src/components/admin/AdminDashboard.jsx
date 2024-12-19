@@ -5,6 +5,8 @@ import {
   FiUsers,
   FiTrendingUp,
 } from "react-icons/fi";
+import { FaBahtSign } from "react-icons/fa6";
+
 import useClickbuyStore from "../../store/clickbuy-store";
 import { getListAllUsers } from "../../api/admin";
 import { dateTimeFormat } from "../../utils/dateformat";
@@ -37,7 +39,7 @@ const AdminDashboard = () => {
         products
           .reduce((sum, product) => sum + product.price * product.sold, 0)
           .toFixed(2),
-      icon: <FiDollarSign className="w-6 h-6" />,
+      icon: <FaBahtSign className="w-6 h-6" />,
       color: "bg-green-100 text-green-600",
     },
     {
@@ -178,7 +180,7 @@ const AdminDashboard = () => {
                 Total
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                $
+                ฿
                 {products
                   .reduce(
                     (sum, product) => sum + product.price * product.sold,
