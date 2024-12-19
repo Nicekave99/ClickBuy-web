@@ -84,7 +84,7 @@ const SearchCard = () => {
         </h1>
         <div>
           {categories.map((item, index) => (
-            <div key={index} className="flex gap-2 justify-center mb-2">
+            <div key={index} className="flex gap-2  mb-2">
               <input onChange={handleCheck} value={item.id} type="checkbox" />
               <label className="text-xl font-mono ">{item.name}</label>
             </div>

@@ -8,8 +8,11 @@ import {
   UserRoundPen,
   LogOut,
 } from "lucide-react";
+import useClickbuyStore from "../../store/clickbuy-store";
 
 const SidebarAdmin = () => {
+  const logout = useClickbuyStore((s) => s.logout);
+
   return (
     <div className="bg-orange-600 w-64 text-gray-100 flex flex-col h-screen">
       <div className="h-24 bg-orange-700 flex items-center justify-center text-2xl font-bold">
@@ -76,16 +79,14 @@ const SidebarAdmin = () => {
       </nav>
 
       <div>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "bg-gray-900 rounded-md text-white px-4 py-2 flex items-center"
-              : "text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white rounded flex items-center"
-          }
+        <button
+          className="bg-black
+         text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white 
+        rounded flex mx-auto "
         >
           <LogOut className="mr-2" />
           Logout
-        </NavLink>
+        </button>
       </div>
     </div>
   );
