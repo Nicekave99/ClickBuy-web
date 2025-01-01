@@ -16,28 +16,47 @@ const ContentCarousel = () => {
   }, []);
 
   const hdlGetImage = () => {
-    axios
-      .get("https://picsum.photos/v2/list?page=1&limit=10")
-      .then((res) => setData(res.data))
-      .catch((error) => console.log(error));
+    const customImages = [
+      {
+        id: 1,
+        download_url:
+          "https://ihavecpu.com/_next/image?url=https%3A%2F%2Fihcupload.s3.ap-southeast-1.amazonaws.com%2Fimg%2Fslidebanner%2F17349367356769089fe73e8.&w=1200&q=75",
+      },
+      {
+        id: 2,
+        download_url:
+          "https://ihavecpu.com/_next/image?url=https%3A%2F%2Fihcupload.s3.ap-southeast-1.amazonaws.com%2Fimg%2Fslidebanner%2F173077579067298aeec6d0e.&w=1200&q=75",
+      },
+      {
+        id: 3,
+        download_url:
+          "https://ihavecpu.com/_next/image?url=https%3A%2F%2Fihcupload.s3.ap-southeast-1.amazonaws.com%2Fimg%2Fslidebanner%2F17313066886731a4c0cf474.jpg&w=1200&q=75",
+      },
+      {
+        id: 4,
+        download_url:
+          "https://ihavecpu.com/_next/image?url=https%3A%2F%2Fihcupload.s3.ap-southeast-1.amazonaws.com%2Fimg%2Fslidebanner%2F17337354936756b4459b07d.jpg&w=1200&q=75",
+      },
+    ];
+    setData(customImages);
   };
 
   return (
     <div className="bg-gray-200 py-10">
       {/* Hero Banner */}
-      <div className="w-full max-w-[1400px] mx-auto">
+      <div className="container mx-auto px-4 py-10 ">
         <Swiper
           pagination={{ clickable: true }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Pagination, Autoplay]}
-          className="w-full h-[500px] rounded-lg overflow-hidden mb-8"
+          className="w-full h-[500px] rounded-3xl overflow-hidden mb-8"
         >
           {data?.map((item) => (
             <SwiperSlide key={item.id}>
               <img
                 src={item.download_url}
                 alt="banner"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </SwiperSlide>
           ))}
@@ -64,7 +83,7 @@ const ContentCarousel = () => {
         </div>
       </div>
 
-      {/* Small Carousel */}
+      {/* Small Carousel
       <div className="w-full max-w-[1400px] mx-auto">
         <Swiper
           slidesPerView={4}
@@ -79,27 +98,11 @@ const ContentCarousel = () => {
               <img
                 src={item.download_url}
                 alt="thumbnail"
-                className="w-full h-48 object-cover rounded-md"
+                className="w-full h-full object-contain"
               />
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
-
-      {/* Brand Logos */}
-      {/* <div className="grid grid-cols-3 md:grid-cols-6 gap-4 px-4 md:px-16 mt-12 max-w-[1400px] mx-auto">
-        {[
-          "https://liquidgaming.co.uk/pub/media/mageplaza/brand/Inno3D_Shop_by_Brand_Logo_1.png",
-          "https://toppng.com/uploads/preview/intel-logo-transparent-11660082425tuq0impel3.png",
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe5xogyBpFdd28jpNUSHznWeEBqNDGpocMYIj6_ZpQtaNY4fPZKQ9p66bqE1onoPgbJP4&usqp=CAU",
-          "https://e7.pngegg.com/pngimages/631/322/png-clipart-lenovo-logo-laptop-lenovo-thinkpad-thinkpad-x1-carbon-intel-dell-lenovo-logo-electronics-text-thumbnail.png",
-          "https://via.placeholder.com/120x50?text=LG",
-          "https://via.placeholder.com/120x50?text=logitech",
-        ].map((logo, index) => (
-          <div key={index} className="flex justify-center items-center">
-            <img src={logo} alt={`logo-${index}`} className="w-auto h-12" />
-          </div>
-        ))}
       </div> */}
     </div>
   );

@@ -70,15 +70,8 @@ const Register = () => {
   return (
     <div className="flex h-screen bg-gray-300">
       <div className="w-full max-w-xl m-auto bg-indigo-100 rounded-xl p-5">
-        <header>
-          <img
-            className="w-36 mx-auto mb-5 rounded-full"
-            src="https://scontent.fbkk30-1.fna.fbcdn.net/v/t39.30808-6/468650538_1612333143032225_3757418526384996837_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=mnDt_UFHYXQQ7kNvgHC27SH&_nc_zt=23&_nc_ht=scontent.fbkk30-1.fna&_nc_gid=AD_8BdGBbG73bH8CjLWncMR&oh=00_AYAM1lPCNxQqXRmpAypK_ZgGBmamCPErpBlxDqHYpp7HUA&oe=675475DA"
-            alt="Logo"
-          />
-        </header>
         <h1 className="text-center text-2xl mb-5 font-mono text-indigo-800">
-          Register
+          สมัครสมาชิก
         </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Email */}
