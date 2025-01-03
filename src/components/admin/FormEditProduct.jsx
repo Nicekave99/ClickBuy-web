@@ -81,12 +81,13 @@ const FormEditProduct = () => {
           placeholder="ชื่อสินค้า"
           name="title"
         />
-        <input
+        <textarea
           className="border border-gray-300 rounded-md p-2 m-2"
           value={form.description}
           onChange={handleOnChange}
           placeholder="รายละเอียดสินค้า"
           name="description"
+          rows="5"
         />
         <input
           type="number"
@@ -118,7 +119,7 @@ const FormEditProduct = () => {
             </option>
           ))}
         </select>
-        <ToastContainer />;
+        <ToastContainer />
         <hr />
         <Uploadfile form={form} setForm={setForm} />
         <button className="bg-orange-500 rounded-md p-2 m-2">

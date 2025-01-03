@@ -77,17 +77,6 @@ const SidebarAdmin = () => {
           จัดการออเดอร์
         </NavLink>
       </nav>
-
-      <div>
-        <button
-          className="bg-black
-         text-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white 
-        rounded flex mx-auto "
-        >
-          <LogOut className="mr-2" />
-          Logout
-        </button>
-      </div>
     </div>
   );
 };

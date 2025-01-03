@@ -23,14 +23,10 @@ const FormProduct = () => {
   const categories = useClickbuyStore((state) => state.categories);
   const getProduct = useClickbuyStore((state) => state.getProduct);
   const products = useClickbuyStore((state) => state.products);
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    price: 0,
-    quantity: 0,
-    categoryId: "",
-    images: [],
-  });
+
+  const [form, setForm] = useState(initialState);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Number of items per page
 
   useEffect(() => {
     getCategory();
@@ -43,11 +39,16 @@ const FormProduct = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await createProduct(token, form);
-      setForm(initialState);
+      setForm(initialState); // รีเซ็ตฟอร์มทั้งหมด
+      setForm((prevForm) => ({
+        ...initialState, // รีเซ็ตข้อมูลฟอร์ม
+        images: [], // รีเซ็ตค่า images เป็น array ว่าง
+      }));
       getProduct();
       toast.success(`เพิ่มข้อมูล ${res.data.title} สำเร็จ`);
     } catch (err) {
@@ -56,8 +57,7 @@ const FormProduct = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("คุณต้องการลบข้อมูลหรือไม่"));
-    {
+    if (window.confirm("คุณต้องการลบข้อมูลหรือไม่")) {
       try {
         const res = await deleteProduct(token, id);
         toast.success("Deleted สินค้าเรียบร้อย!");
@@ -68,11 +68,24 @@ const FormProduct = () => {
     }
   };
 
+  // Logic to get current items based on the page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page function should not trigger form submission
+  const paginate = (pageNumber, e) => {
+    e.preventDefault(); // Prevent form submission
+    setCurrentPage(pageNumber);
+  };
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
   return (
     <div className="container mx-auto p-4 bg-gray-300 shadow-md rounded-md">
       <form onSubmit={handleSubmit}>
         <h1>เพิ่มข้อมูลสินค้า</h1>
-        ชื่อสินค้า:
         <input
           className="border border-gray-300 rounded-md p-2 m-2"
           value={form.title}
@@ -81,13 +94,13 @@ const FormProduct = () => {
           name="title"
         />
         <br />
-        รายละเอียดสินค้า:
-        <input
+        <textarea
           className="border border-gray-300 rounded-md p-2 m-2"
           value={form.description}
           onChange={handleOnChange}
           placeholder="รายละเอียดสินค้า"
           name="description"
+          rows="10"
         />
         <br /> ราคา:
         <input
@@ -107,6 +120,7 @@ const FormProduct = () => {
           placeholder="จำนวนสินค้า"
           name="quantity"
         />
+        <br />
         <select
           className="border border-gray-300 rounded-md p-2 m-2"
           name="categoryId"
@@ -143,7 +157,7 @@ const FormProduct = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((item, index) => {
+            {currentProducts.map((item, index) => {
               return (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
@@ -191,6 +205,24 @@ const FormProduct = () => {
             })}
           </tbody>
         </table>
+        {/* Pagination Controls */}
+        <div className="flex justify-center space-x-4 mt-4">
+          <button
+            onClick={(e) => paginate(currentPage - 1, e)}
+            disabled={currentPage === 1}
+            className="bg-gray-500 text-white px-4 py-2 rounded-md"
+          >
+            Previous
+          </button>
+          <span className="self-center">{`Page ${currentPage} of ${totalPages}`}</span>
+          <button
+            onClick={(e) => paginate(currentPage + 1, e)}
+            disabled={currentPage === totalPages}
+            className="bg-gray-500 text-white px-4 py-2 rounded-md"
+          >
+            Next
+          </button>
+        </div>
       </form>
       <ToastContainer />
     </div>
