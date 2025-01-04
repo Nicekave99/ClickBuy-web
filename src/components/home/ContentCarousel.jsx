@@ -49,7 +49,7 @@ const ContentCarousel = () => {
           pagination={{ clickable: true }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Pagination, Autoplay]}
-          className="w-full h-[500px] rounded-3xl overflow-hidden mb-8"
+          className="w-full h-[200px] sm:h-[400px] rounded-md overflow-hidden"
         >
           {data?.map((item) => (
             <SwiperSlide key={item.id}>

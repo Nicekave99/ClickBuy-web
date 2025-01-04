@@ -1,5 +1,5 @@
 import React from "react";
-import { ListCheck } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import useClickbuyStore from "../../store/clickbuy-store";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,6 +11,12 @@ const Checkout = () => {
   const user = useClickbuyStore((s) => s.user);
   const token = useClickbuyStore((s) => s.token);
   const getTotalPrice = useClickbuyStore((state) => state.getTotalPrice);
+  const actionUpdateQuantity = useClickbuyStore(
+    (state) => state.actionUpdateQuantity
+  );
+  const actionRemoveProduct = useClickbuyStore(
+    (state) => state.actionRemoveProduct
+  );
   const navigate = useNavigate();
 
   const handleSaveCart = async () => {
@@ -29,100 +35,111 @@ const Checkout = () => {
   };
 
   return (
-    <div className="bg-gray-100 rounded-sm p-4">
-      {/* Header */}
-      <div className="flex gap-4 mb-4">
-        <ListCheck size={36} />
-        <p className="text-2xl font-bold">รายการสินค้า {cart.length} รายการ</p>
-      </div>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-8 text-gray-800">ตะกร้าสินค้า</h1>
 
-      {/* List */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-4">
-        {/* Left */}
-        <div className="col-span-2">
-          {/* Card */}
-          {cart.map((item, index) => (
-            <div key={index} className="bg-white p-2 rounded-md shadow-md mb-2">
-              {/* Row 1 */}
-              <div className="flex justify-between mb-2">
-                {/* Left */}
-                <div className="flex gap-2 items-center">
-                  {item.images && item.images.length > 0 ? (
-                    <img
-                      className="w-16 h-16 rounded-md"
-                      src={item.images[0].url}
-                    />
-                  ) : (
-                    <div
-                      className="w-16 h-16 bg-gray-200 
-                            rounded-md flex text-center items-center"
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-4 text-left text-sm font-medium">
+                  รูปสินค้า
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-medium ">
+                  ชื่อสินค้า
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-medium ">
+                  ราคา
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-medium ">
+                  จำนวน
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-medium ">
+                  เงินรวม
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-medium ">ลบ</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {cart.map((item, index) => (
+                <tr key={index} className="text-center">
+                  <td className="px-6 py-4">
+                    {item.images && item.images.length > 0 ? (
+                      <img
+                        className="w-16 h-16 object-cover rounded-lg"
+                        src={item.images[0].url}
+                        alt={item.title}
+                      />
+                    ) : (
+                      <div className="w-16 h-16 bg-gray-200 rounded-lg mx-auto flex items-center justify-center">
+                        No Image
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-left text-sm text-gray-900">
+                    {item.title}
+                  </td>
+                  <td className="px-6 py-4 text-sm ">
+                    {numberFormat(item.price)}
+                  </td>
+                  <td className="px-6 py-4">
+                    <select
+                      value={item.count}
+                      onChange={(e) =>
+                        actionUpdateQuantity(item.id, parseInt(e.target.value))
+                      }
+                      className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
-                      No Image
-                    </div>
-                  )}
-
-                  <div>
-                    <p className="font-bold">{item.title}</p>
-                    <p className="text-sm">
-                      {numberFormat(item.price)} x {item.count}
-                    </p>
-                  </div>
-                </div>
-                {/* Right */}
-                <div>
-                  <div className="font-bold text-blue-500">
+                      {[...Array(item.quantity).keys()].map((i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td className="px-6 py-4 text-sm font-bold text-gray-900">
                     {numberFormat(item.price * item.count)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => actionRemoveProduct(item.id)}
+                      className="text-red-500 hover:text-red-700 transition-colors"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        {/* Right */}
-        <div className="bg-white p-4 rounded-md shadow-md space-y-4">
-          <p className="text-2xl font-bold">ยอดรวม</p>
-          <div className="flex justify-between">
-            <span>รวมสุทธิ</span>
-            <span className="text-2xl font-bold">
-              {numberFormat(getTotalPrice())}
+        <div className="px-6 py-4 bg-gray-50">
+          <div className="flex justify-between items-center">
+            <span className="text-lg font-medium text-gray-900">
+              ยอดรวมทั้งหมด
+            </span>
+            <span className="text-2xl font-bold text-red-600">
+              {numberFormat(getTotalPrice())} บาท
             </span>
           </div>
+        </div>
 
-          <div className="flex flex-col gap-2">
-            {user ? (
-              <Link>
-                <button
-                  disabled={cart.length < 1}
-                  onClick={handleSaveCart}
-                  className="bg-red-500 w-full
-                    rounded-md text-white py-2 shadow-md hover:bg-red-700
-                    "
-                >
-                  สั่งซื้อ
-                </button>
-              </Link>
-            ) : (
-              <Link to={"/login"}>
-                <button
-                  className="bg-blue-500 w-full
-                    rounded-md text-white py-2 shadow-md hover:bg-blue-700
-                    "
-                >
-                  Login
-                </button>
-              </Link>
-            )}
-
-            <Link to={"/shop"}>
-              <button
-                className="bg-gray-500 w-full 
-                    rounded-md text-white py-2 shadow-md hover:bg-gray-700
-                    "
-              >
-                แก้ไขรายการ
+        <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
+          <div className="flex justify-end space-x-4">
+            <Link to="/shop">
+              <button className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
+                เลือกซื้อสินค้าต่อ
               </button>
             </Link>
+            <button
+              disabled={cart.length < 1}
+              onClick={handleSaveCart}
+              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              ดำเนินการชำระเงิน
+            </button>
           </div>
         </div>
       </div>

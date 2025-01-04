@@ -31,7 +31,7 @@ const MainNav = () => {
               }
               to={"/"}
             >
-              Home
+              หน้าแรก
             </NavLink>
             <NavLink
               className={({ isActive }) =>
@@ -41,7 +41,7 @@ const MainNav = () => {
               }
               to={"/shop"}
             >
-              Shop
+              สินค้า
             </NavLink>
 
             <NavLink
