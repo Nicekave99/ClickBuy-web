@@ -8,6 +8,7 @@ import BestSeller from "../components/home/BestSeller";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PageTitle from "../components/PageTitle";
 import { Navigate } from "react-router-dom";
+import ZoomImage from "../components/ZoomImage";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -39,6 +40,7 @@ const ProductDetail = () => {
     <div className="container mx-auto px-10 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* รูปภาพสินค้า */}
+
         <div>
           {product.images && product.images.length > 0 ? (
             <Swiper
