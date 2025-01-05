@@ -9,33 +9,6 @@ import { toast, ToastContainer } from "react-toastify";
 const ProductCard = ({ item }) => {
   const actionADTCart = useClickbuyStore((state) => state.actionADTCart);
 
-  const toastIdRef = `toast-${item.id}`;
-
-  const handleAddToCart = (item) => {
-    actionADTCart(item); // เรียกใช้งาน zustand action สำหรับเพิ่มสินค้าในตะกร้า
-
-    // ตรวจสอบว่ามี Toast แสดงอยู่หรือไม่
-    if (toast.isActive(toastIdRef)) {
-      // อัปเดตข้อความของ Toast ที่มีอยู่แล้ว
-      toast.update(toastIdRef, {
-        render: `${item.title} ถูกเพิ่มลงในตะกร้าแล้ว (อัปเดต)!`,
-        type: toast.TYPE.SUCCESS,
-        autoClose: 3000,
-      });
-    } else {
-      // สร้าง Toast ใหม่หากยังไม่มี
-      toast.success(`${item.title} ถูกเพิ่มลงในตะกร้าแล้ว!`, {
-        toastId: toastIdRef,
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-      });
-    }
-  };
   return (
     <motion.div
       className="box"
@@ -78,7 +51,7 @@ const ProductCard = ({ item }) => {
             {numberFormat(item.price) + " ฿"}
           </span>
           <button
-            onClick={() => handleAddToCart(item)}
+            onClick={() => actionADTCart(item)}
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 shadow-md"
           >
             <ShoppingCart />

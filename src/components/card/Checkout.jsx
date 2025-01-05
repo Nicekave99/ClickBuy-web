@@ -1,10 +1,10 @@
 import React from "react";
-import { Trash2 } from "lucide-react";
 import useClickbuyStore from "../../store/clickbuy-store";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { numberFormat } from "../../utils/number";
 import { createUserCart } from "../../api/user";
+import { Trash } from "lucide-react";
 
 const Checkout = () => {
   const cart = useClickbuyStore((state) => state.carts);
@@ -106,7 +106,7 @@ const Checkout = () => {
                       onClick={() => actionRemoveProduct(item.id)}
                       className="text-red-500 hover:text-red-700 transition-colors"
                     >
-                      <Trash2 size={20} />
+                      <Trash />
                     </button>
                   </td>
                 </tr>
@@ -133,13 +133,21 @@ const Checkout = () => {
                 เลือกซื้อสินค้าต่อ
               </button>
             </Link>
-            <button
-              disabled={cart.length < 1}
-              onClick={handleSaveCart}
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              ดำเนินการชำระเงิน
-            </button>
+            {user ? (
+              <button
+                disabled={cart.length < 1}
+                onClick={handleSaveCart}
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                ดำเนินการชำระเงิน
+              </button>
+            ) : (
+              <Link to={"/login"}>
+                <button className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                  กรุณาล็อคอิน
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

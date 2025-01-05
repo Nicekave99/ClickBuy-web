@@ -64,11 +64,11 @@ const ContentCarousel = () => {
       </div>
 
       {/* Promotional Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-16 max-w-[1400px] mx-auto">
-        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-          <h3 className="text-red-600 font-bold text-2xl mb-2">จัดส่งฟรี</h3>
-          <p>เมื่อสั่งซื้อครบ 999 บาทขึ้นไป</p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-18 max-w-[1400px] mx-auto">
+        <img
+          src="https://i.imgur.com/750ZABJ.png"
+          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
+        />
 
         <div className="bg-white shadow-lg rounded-lg p-6 text-center">
           <h3 className="text-yellow-600 font-bold text-2xl mb-2">ผ่อนชำระ</h3>
@@ -82,28 +82,6 @@ const ContentCarousel = () => {
           <p>แก้ไขปัญหาถึงที่บ้าน</p>
         </div>
       </div>
-
-      {/* Small Carousel
-      <div className="w-full max-w-[1400px] mx-auto">
-        <Swiper
-          slidesPerView={4}
-          spaceBetween={20}
-          navigation={true}
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          modules={[Navigation, Autoplay]}
-          className="w-full mt-8 px-4 md:px-16"
-        >
-          {data?.map((item) => (
-            <SwiperSlide key={item.id}>
-              <img
-                src={item.download_url}
-                alt="thumbnail"
-                className="w-full h-full object-contain"
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div> */}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { listCategory } from "../api/Category";
 import { listProduct, searchFilters } from "../api/Product";
 import _ from "lodash";
+import { toast } from "react-toastify";
 
 const ClickbuyStore = (set, get) => ({
   user: null,
@@ -26,6 +27,14 @@ const ClickbuyStore = (set, get) => ({
 
     // Step Unique
     const uniqe = _.unionWith(updateCart, _.isEqual);
+    toast.success("เพิ่มสินค้าลงตะกร้าเรียบร้อย !", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
 
     set({
       carts: uniqe,
@@ -41,6 +50,15 @@ const ClickbuyStore = (set, get) => ({
     }));
   },
   actionRemoveProduct: (productId) => {
+    toast.error("ลบสินค้าเรียบร้อย !", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+
     set((state) => ({
       carts: state.carts.filter((item) => item.id !== productId),
     }));

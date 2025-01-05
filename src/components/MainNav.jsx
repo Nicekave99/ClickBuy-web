@@ -16,7 +16,7 @@ const MainNav = () => {
 
   return (
     <nav className="bg-blue-500 shadow-md position: sticky top-0 z-50">
-      <div className="mx-auto px-5">
+      <div className="mx-auto px-5 shadow-2xl">
         <div className="flex justify-between h-16">
           <div className="flex items-center gap-6 text-white">
             <Link to={"/"} className="text-2xl font-bold">

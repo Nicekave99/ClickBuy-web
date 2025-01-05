@@ -14,7 +14,6 @@ const Shop = () => {
     getProduct();
   }, []);
 
-  // Pagination logic
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -33,43 +32,47 @@ const Shop = () => {
   };
 
   return (
-    <div className="flex ">
+    <div className="flex flex-col min-h-screen">
       <Helmet>
         <title>สินค้า - ClickBuy</title>
         <meta name="description" content="คำอธิบายหน้าแรก" />
       </Helmet>
 
-      <div className="w-1/4 h-screen p-4 bg-gray-100">
-        <SearchCard />
-      </div>
-
-      <div className="p-4 h-screen flex flex-col flex-1">
-        <p className="text-2xl font-bold mb-4">สินค้าทั้งหมด</p>
-        <div className="flex flex-wrap justify-stretch gap-4">
-          {currentProducts.map((item, index) => (
-            <ProductCard key={index} item={item} />
-          ))}
+      <div className="flex">
+        {/* Sidebar */}
+        <div className="w-1/4 h-screen p-4 bg-gray-100">
+          <SearchCard />
         </div>
 
-        <div className="mt-4 flex justify-between items-center">
-          <button
-            onClick={handlePreviousPage}
-            disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
-          >
-            ก่อนหน้า
-          </button>
-          <span>
-            หน้า {currentPage} จาก {totalPages}
-          </span>
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
-          >
-            ถัดไป
-          </button>
-        </div>
+        {/* Content */}
+        <main className="p-4 h-screen flex flex-col flex-1 overflow-y-auto">
+          <p className="text-2xl font-bold mb-4">สินค้าทั้งหมด</p>
+          <div className="flex flex-wrap justify-stretch gap-4">
+            {currentProducts.map((item, index) => (
+              <ProductCard key={index} item={item} />
+            ))}
+          </div>
+
+          <div className="mt-4 flex justify-between items-center">
+            <button
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+            >
+              ก่อนหน้า
+            </button>
+            <span>
+              หน้า {currentPage} จาก {totalPages}
+            </span>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+            >
+              ถัดไป
+            </button>
+          </div>
+        </main>
       </div>
     </div>
   );
