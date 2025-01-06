@@ -20,6 +20,9 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const handleSaveCart = async () => {
+    toast.success("รอสักครู่ ระบบกำลังพาท่านไปหน้าชำระเงิน", {
+      position: "top-center",
+    });
     await createUserCart(token, { cart })
       .then((res) => {
         console.log(res);
