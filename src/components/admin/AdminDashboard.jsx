@@ -13,23 +13,34 @@ import { dateTimeFormat } from "../../utils/dateformat";
 
 const AdminDashboard = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
   const products = useClickbuyStore((state) => state.products);
   const [users, setUsers] = useState([]);
   const token = useClickbuyStore((state) => state.token);
 
   useEffect(() => {
-    // ฟังก์ชันจำลองสำหรับดึงข้อมูลผู้ใช้
     const fetchUsers = async () => {
       try {
-        const res = await getListAllUsers(token); // แทนที่ด้วย API ที่คุณใช้
-        setUsers(res.data); // ตั้งค่าผู้ใช้
+        const res = await getListAllUsers(token);
+        setUsers(res.data);
       } catch (err) {
         console.log(err);
       }
     };
-
     fetchUsers();
   }, [token]);
+
+  // กรองสินค้าที่มียอดขายเท่านั้น
+  const filteredProducts = products.filter((product) => product.sold > 0);
+
+  // คำนวณสินค้าในหน้าปัจจุบัน
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   const stats = [
     {
@@ -87,7 +98,9 @@ const AdminDashboard = () => {
 
       {/* Filter */}
       <div className="mb-6 flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-800">ตารางสินค้าที่ขาย</h2>
+        <h2 className="text-2xl font-bold text-gray-800">
+          ตารางสินค้าที่ขายแล้ว
+        </h2>
         <select
           value={selectedPeriod}
           onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -105,40 +118,25 @@ const AdminDashboard = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 สินค้า
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 ราคา
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 จำนวนที่ขายได้
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 รวมราคาทั้งหมด
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 อัพเดทล่าสุด
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {products.map((product, index) => (
+            {paginatedProducts.map((product, index) => (
               <tr
                 key={product.id}
                 className={`${
@@ -171,27 +169,30 @@ const AdminDashboard = () => {
               </tr>
             ))}
           </tbody>
-          <tfoot className="bg-gray-50">
-            <tr>
-              <td
-                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                colSpan="3"
-              >
-                Total
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                ฿
-                {products
-                  .reduce(
-                    (sum, product) => sum + product.price * product.sold,
-                    0
-                  )
-                  .toFixed(2)}
-              </td>
-              <td></td>
-            </tr>
-          </tfoot>
         </table>
+
+        {/* Pagination */}
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-200 rounded-md mx-1 disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="px-4 py-2">
+            {currentPage} / {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-200 rounded-md mx-1 disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

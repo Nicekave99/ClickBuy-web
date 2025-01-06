@@ -7,8 +7,6 @@ import useClickbuyStore from "../store/clickbuy-store";
 import BestSeller from "../components/home/BestSeller";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PageTitle from "../components/PageTitle";
-import { Navigate } from "react-router-dom";
-import ZoomImage from "../components/ZoomImage";
 
 const ProductDetail = () => {
   const { id } = useParams();

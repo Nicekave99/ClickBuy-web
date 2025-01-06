@@ -19,3 +19,15 @@ export const removeCategory = async (token, id) => {
 export const listCategory = async () => {
   return axios.get("https://clickbuy-api.vercel.app/api/category", {});
 };
+
+export const updateCategory = async (token, id, categoryData) => {
+  return axios.put(
+    `https://clickbuy-api.vercel.app/api/category/${id}`,
+    categoryData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
