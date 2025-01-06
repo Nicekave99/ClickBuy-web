@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useClickbuyStore from "../../store/clickbuy-store";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -14,7 +14,6 @@ const SearchCard = () => {
 
   const [text, setText] = useState("");
   const [categorySelected, setCategorySelected] = useState([]);
-
   const [price, setPrice] = useState([0, 100000]);
   const [ok, setOk] = useState(false);
 
@@ -22,7 +21,7 @@ const SearchCard = () => {
     getCategory();
   }, []);
 
-  //  Step 1 Search Text
+  // Search Text
   useEffect(() => {
     if (!text) {
       getProduct();
@@ -36,16 +35,16 @@ const SearchCard = () => {
     return () => clearTimeout(delaySearch);
   }, [text, actionSearchFilters, getProduct]);
 
-  //  Step 2 Search by Category
+  // Search by Category
   const handleCheck = (e) => {
-    const inCheck = e.target.value; // ค่าที่เรา Check
-    const inState = [...categorySelected]; // [] arr ว่าง
-    const findCheck = inState.indexOf(inCheck); // ถ้าไม่เจอ จะ return -1
+    const inCheck = e.target.value;
+    const inState = [...categorySelected];
+    const findCheck = inState.indexOf(inCheck);
 
     if (findCheck === -1) {
       inState.push(inCheck);
     } else {
-      inState.splice(findCheck, 1); // ลบออก
+      inState.splice(findCheck, 1);
     }
     setCategorySelected(inState);
     if (inState.length > 0) {
@@ -55,10 +54,11 @@ const SearchCard = () => {
     }
   };
 
-  //  Step 3 Search by price
+  // Search by Price
   useEffect(() => {
     actionSearchFilters({ price });
   }, [ok]);
+
   const handlePrice = (value) => {
     setPrice(value);
     setTimeout(() => {
@@ -67,48 +67,69 @@ const SearchCard = () => {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-      <h1 className="text-xl font-bold text-center mb-4">ค้นหาสินค้า</h1>
-      {/* Search By text */}
+    <div className="bg-white p-6 rounded-md shadow-md max-w-sm mx-auto">
+      {/* Header */}
+      <h1 className="text-lg font-bold text-center mb-6">ค้นหาสินค้า</h1>
+
+      {/* Search By Text */}
       <input
         onChange={(e) => setText(e.target.value)}
         type="text"
-        placeholder="ค้นหาสินค้าที่นี้...."
-        className="border rounded-md w-full mb-4 px-2 py-2"
+        placeholder="ค้นหาสินค้าที่นี่..."
+        className="border rounded-md w-full px-3 py-2 mb-4"
       />
-      <hr />
+
+      <hr className="my-4" />
+
       {/* Search by Category */}
       <div>
-        <h1 className="text-xl font-bold text-center mt-4 mb-4">
-          หมวดหมู่สินค้า
-        </h1>
-        <div>
+        <h2 className="text-md font-semibold mb-4">หมวดหมู่สินค้า</h2>
+        <div className="space-y-2">
           {categories.map((item, index) => (
-            <div key={index} className="flex gap-2  mb-2">
-              <input onChange={handleCheck} value={item.id} type="checkbox" />
-              <label className="text-xl font-mono ">{item.name}</label>
+            <div key={index} className="flex items-center">
+              <input
+                onChange={handleCheck}
+                value={item.id}
+                type="checkbox"
+                className="mr-3"
+              />
+              <label className="text-sm font-medium">{item.name}</label>
             </div>
           ))}
         </div>
       </div>
-      <hr />
+
+      <hr className="my-4" />
+
       {/* Search By Price */}
       <div>
-        <h1 className="text-xl font-bold text-center mt-4 mb-4">ค้นหาราคา</h1>
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <span>MIN : {price[0]}</span>
-            <span>MAX :{price[1]}</span>
-          </div>
-
-          <Slider
-            onChange={handlePrice}
-            range
-            min={0}
-            max={100000}
-            defaultValue={[0, 100000]}
+        <h2 className="text-md font-semibold mb-4">ช่วงราคา</h2>
+        <div className="flex items-center justify-between mb-2">
+          <input
+            type="number"
+            value={price[0]}
+            onChange={(e) => handlePrice([+e.target.value, price[1]])}
+            className="w-24 border rounded-md px-2 py-1 text-center"
+          />
+          <span className="text-sm font-medium">-</span>
+          <input
+            type="number"
+            value={price[1]}
+            onChange={(e) => handlePrice([price[0], +e.target.value])}
+            className="w-24 border rounded-md px-2 py-1 text-center"
           />
         </div>
+        <Slider
+          onChange={handlePrice}
+          range
+          min={0}
+          max={100000}
+          defaultValue={[0, 100000]}
+          value={price}
+          trackStyle={{ backgroundColor: "#FF6B6B" }}
+          handleStyle={{ borderColor: "#FF6B6B" }}
+          className="mt-2"
+        />
       </div>
     </div>
   );

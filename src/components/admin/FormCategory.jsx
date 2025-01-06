@@ -14,7 +14,7 @@ const FormCategory = () => {
   const [editId, setEditId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 15;
   const categories = useClickbuyStore((state) => state.categories);
   const getCategory = useClickbuyStore((state) => state.getCategory);
 
