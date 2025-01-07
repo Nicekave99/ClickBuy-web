@@ -70,17 +70,15 @@ const ContentCarousel = () => {
           className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
         />
 
-        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-          <h3 className="text-yellow-600 font-bold text-2xl mb-2">ผ่อนชำระ</h3>
-          <p>นานสูงสุด 10 เดือน</p>
-        </div>
+          <img
+          src="https://i.imgur.com/750ZABJ.png"
+          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
+        />
 
-        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-          <h3 className="text-green-600 font-bold text-2xl mb-2">
-            Onsite Service
-          </h3>
-          <p>แก้ไขปัญหาถึงที่บ้าน</p>
-        </div>
+          <img
+          src="https://i.imgur.com/750ZABJ.png"
+          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
+        />
       </div>
     </div>
   );
