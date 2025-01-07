@@ -21,6 +21,7 @@ import ProtectRouteAdmin from "./ProtectRouteAdmin";
 import EditProduct from "../pages/admin/EditProduct";
 import ManageOrders from "../pages/admin/ManageOrders";
 import ProductDetail from "../pages/ProductDetail";
+import SearchResults from "../pages/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "product/:id", element: <ProductDetail /> },
+      { path: "search", element: <SearchResults /> },
     ],
   },
   {

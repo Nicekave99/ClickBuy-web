@@ -1,17 +1,41 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useClickbuyStore from "../store/clickbuy-store";
-import { ShoppingBag, User, ChevronDown } from "lucide-react";
+import { ShoppingBag, User } from "lucide-react";
 
 const MainNav = () => {
   const carts = useClickbuyStore((s) => s.carts);
   const user = useClickbuyStore((s) => s.user);
   const logout = useClickbuyStore((s) => s.logout);
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim() !== "") {
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  const closeDropdown = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", closeDropdown);
+    return () => {
+      document.removeEventListener("mousedown", closeDropdown);
+    };
+  }, []);
 
   return (
     <nav className="bg-black text-white shadow-md sticky top-0 z-50">
@@ -39,14 +63,15 @@ const MainNav = () => {
 
         {/* Search Bar */}
         <div className="flex-1 mx-6">
-          <form className="flex">
+          <form className="flex" onSubmit={handleSearch}>
             <input
               type="text"
-              placeholder="ค้นหาสินค้า // อยู่ระหว่างพัฒนา"
+              placeholder="ค้นหาสินค้า"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black focus:outline-none focus:border-blue-500"
             />
             <button
-              disabled
               type="submit"
               className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
             >
@@ -87,15 +112,19 @@ const MainNav = () => {
             className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200"
           >
             <ShoppingBag size={24} className="text-black" />
-            {carts.length > 0 && (
+            {carts.length > 0 ? (
               <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full px-2">
                 {carts.length}
+              </span>
+            ) : (
+              <span className="absolute top-1 right-1 bg-gray-400 text-white text-xs rounded-full px-2">
+                0
               </span>
             )}
           </NavLink>
 
           {/* User Dropdown */}
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               onClick={toggleDropdown}
               className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200"
@@ -104,7 +133,7 @@ const MainNav = () => {
             </button>
 
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-md rounded-lg">
+              <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-md rounded-lg z-50">
                 {!user ? (
                   <>
                     <Link

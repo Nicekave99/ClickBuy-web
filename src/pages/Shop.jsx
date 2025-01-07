@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/card/ProductCard";
 import useClickbuyStore from "../store/clickbuy-store";
 import SearchCard from "../components/card/SearchCard";
-import { Helmet } from "react-helmet";
 
 const Shop = () => {
   const getProduct = useClickbuyStore((state) => state.getProduct);
@@ -19,17 +18,7 @@ const Shop = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="flex justify-center min-h-screen bg-gray-50">
@@ -48,24 +37,21 @@ const Shop = () => {
             ))}
           </div>
 
-          <div className="mt-4 flex justify-between items-center">
-            <button
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
-            >
-              ก่อนหน้า
-            </button>
-            <span>
-              หน้า {currentPage} จาก {totalPages}
-            </span>
-            <button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
-            >
-              ถัดไป
-            </button>
+          {/* Pagination */}
+          <div className="flex justify-center mt-6">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => paginate(page)}
+                className={`px-3 py-2 mx-1 rounded-md ${
+                  page === currentPage
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200 text-gray-700"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
           </div>
         </main>
       </div>
