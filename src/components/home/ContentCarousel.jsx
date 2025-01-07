@@ -71,12 +71,12 @@ const ContentCarousel = () => {
         />
 
           <img
-          src="https://i.imgur.com/750ZABJ.png"
+          src="https://i.imgur.com/7mFKl6g.jpeg"
           className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
         />
 
           <img
-          src="https://i.imgur.com/750ZABJ.png"
+          src="https://i.imgur.com/4LBy6wE.jpeg"
           className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
         />
       </div>
