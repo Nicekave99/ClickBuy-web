@@ -33,11 +33,6 @@ const Shop = () => {
 
   return (
     <div className="flex justify-center min-h-screen bg-gray-50">
-      <Helmet>
-        <title>สินค้า - ClickBuy</title>
-        <meta name="description" content="คำอธิบายหน้าแรก" />
-      </Helmet>
-
       <div className="flex overflow-hidden w-full max-w-7xl">
         {/* Sidebar */}
         <div className="w-1/4 h-screen p-4 bg-gray-100">

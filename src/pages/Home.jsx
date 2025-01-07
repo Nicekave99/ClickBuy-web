@@ -7,11 +7,6 @@ import { Helmet } from "react-helmet";
 const Home = () => {
   return (
     <div>
-      <Helmet>
-        <title>หน้าแรก - ClickBuy</title>
-        <meta name="description" content="คำอธิบายหน้าแรก" />
-      </Helmet>
-
       <ContentCarousel />
       <p className="font-bold text-3xl my-10 text-center  ">สินค้าขายอย่างดี</p>
       <BestSeller />

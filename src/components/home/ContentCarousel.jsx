@@ -42,14 +42,14 @@ const ContentCarousel = () => {
   };
 
   return (
-    <div className="bg-gray-200 py-10">
+    <div className="bg-gray-200 round ">
       {/* Hero Banner */}
-      <div className="container mx-auto px-4 py-10 ">
+      <div className="container mx-auto  py-4  ">
         <Swiper
           pagination={{ clickable: true }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           modules={[Pagination, Autoplay]}
-          className="w-full h-[200px] sm:h-[400px] rounded-md overflow-hidden"
+          className="w-full h-[200px] sm:h-[400px] rounded-md overflow-hidden "
         >
           {data?.map((item) => (
             <SwiperSlide key={item.id}>
@@ -64,20 +64,20 @@ const ContentCarousel = () => {
       </div>
 
       {/* Promotional Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-18 max-w-[1400px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8 md:px-18 max-w-[1400px] mx-auto py-4">
         <img
           src="https://i.imgur.com/750ZABJ.png"
-          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
+          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 w-full h-full object-fill"
         />
 
-          <img
+        <img
           src="https://i.imgur.com/7mFKl6g.jpeg"
-          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
+          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 w-full h-full object-fill"
         />
 
-          <img
+        <img
           src="https://i.imgur.com/4LBy6wE.jpeg"
-          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 "
+          className="bg-white shadow-lg rounded-lg hover:translate-x-1 hover:opacity-70 transition-all duration-300 w-full h-full object-fill"
         />
       </div>
     </div>

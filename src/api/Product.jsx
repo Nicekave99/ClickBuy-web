@@ -68,3 +68,9 @@ export const listProductBy = async (sort, order, limit) => {
     limit,
   });
 };
+
+export const searchProducts = async (keyword) => {
+  return axios.get(
+    `https://clickbuy-api.vercel.app/api/products/search/${keyword}`
+  );
+};

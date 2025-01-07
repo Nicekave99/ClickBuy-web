@@ -20,7 +20,8 @@ import ProtectRouteUser from "./ProtectRouteUser";
 import ProtectRouteAdmin from "./ProtectRouteAdmin";
 import EditProduct from "../pages/admin/EditProduct";
 import ManageOrders from "../pages/admin/ManageOrders";
-import ProductDetail from "../pages/ProductDetail"; // Import หน้ารายละเอียดสินค้า
+import ProductDetail from "../pages/ProductDetail";
+import SearchResults from "../pages/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,8 @@ const router = createBrowserRouter([
       { path: "checkout", element: <Checkout /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "product/:id", element: <ProductDetail /> }, // เพิ่ม Route สำหรับรายละเอียดสินค้า
+      { path: "product/:id", element: <ProductDetail /> },
+      { path: "product/search/:keyword", element: <SearchResults /> },
     ],
   },
   {
