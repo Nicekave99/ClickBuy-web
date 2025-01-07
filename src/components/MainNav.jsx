@@ -2,22 +2,12 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useClickbuyStore from "../store/clickbuy-store";
 import { ShoppingBag, User, ChevronDown } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const MainNav = () => {
   const carts = useClickbuyStore((s) => s.carts);
   const user = useClickbuyStore((s) => s.user);
   const logout = useClickbuyStore((s) => s.logout);
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/product/search/${searchTerm}`);
-    }
-  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -49,15 +39,14 @@ const MainNav = () => {
 
         {/* Search Bar */}
         <div className="flex-1 mx-6">
-          <form onSubmit={handleSearch} className="flex">
+          <form className="flex">
             <input
               type="text"
-              placeholder="ค้นหาสินค้า"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="ค้นหาสินค้า // อยู่ระหว่างพัฒนา"
               className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black focus:outline-none focus:border-blue-500"
             />
             <button
+              disabled
               type="submit"
               className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
             >
