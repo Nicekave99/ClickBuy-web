@@ -17,6 +17,7 @@ const MainNav = () => {
     e.preventDefault();
     if (searchQuery.trim() !== "") {
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery("");
     }
   };
 
