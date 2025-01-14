@@ -31,3 +31,28 @@ export const updateCategory = async (token, id, categoryData) => {
     }
   );
 };
+
+export const createFilter = async (token, filterData) => {
+  return axios.post("https://clickbuy-api.vercel.app/api/filter", filterData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const removeFilter = async (token, filterId) => {
+  return axios.delete(
+    "https://clickbuy-api.vercel.app/api/filter/" + filterId,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+export const listFilters = async (categoryId) => {
+  return axios.get(
+    "https://clickbuy-api.vercel.app/api/filters?categoryId=" + categoryId
+  );
+};

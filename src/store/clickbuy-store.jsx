@@ -12,6 +12,7 @@ const ClickbuyStore = (set, get) => ({
   categories: [],
   products: [],
   carts: [],
+  filters: [],
   logout: () => {
     set({
       user: null,
@@ -21,6 +22,34 @@ const ClickbuyStore = (set, get) => ({
       carts: [],
     });
   },
+
+  getFilters: async (categoryId) => {
+    try {
+      const res = await axios.get(
+        `https://clickbuy-api.vercel.app/api/filters?categoryId=${categoryId}`
+      );
+      set({ filters: res.data });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  updateProductFilter: async (productId, filterId) => {
+    try {
+      const res = await axios.put(
+        `https://clickbuy-api.vercel.app/api/product/filter`,
+        {
+          productId,
+          filterId,
+        }
+      );
+      toast.success("Product filter updated successfully");
+      return res.data;
+    } catch (err) {
+      toast.error("Error updating product filter");
+      console.log(err);
+    }
+  },
+
   actionADTCart: (product) => {
     const carts = get().carts;
     const updateCart = [...carts, { ...product, count: 1 }];
