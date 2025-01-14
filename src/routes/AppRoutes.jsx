@@ -22,6 +22,7 @@ import EditProduct from "../pages/admin/EditProduct";
 import ManageOrders from "../pages/admin/ManageOrders";
 import ProductDetail from "../pages/ProductDetail";
 import SearchResults from "../pages/SearchResults";
+import CategoryPages from "../pages/CategoryPage";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
       { path: "register", element: <Register /> },
       { path: "product/:id", element: <ProductDetail /> },
       { path: "search", element: <SearchResults /> },
+      { path: "categories/:categoryId", element: <CategoryPages /> },
     ],
   },
   {
