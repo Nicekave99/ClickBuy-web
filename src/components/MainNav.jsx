@@ -199,140 +199,141 @@ const MainNav = () => {
             หมวดหมู่สินค้า
           </button>
           {openDropdown.category && (
-            <div className="left-0 mt-2 w-60 bg-white text-black shadow-lg rounded-lg z-50">
-              <Link
-                to="/categories/15"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/12120/12120437.png"
-                  alt=""
-                />
-                ซีพียู
-              </Link>
-              <Link
-                to="/categories/14"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/3870/3870550.png"
-                  alt=""
-                />
-                เมนบอร์ด
-              </Link>
-              <Link
-                to="/categories/19"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/4703/4703571.png"
-                  alt=""
-                />
-                การ์ดจอ
-              </Link>
-              <Link
-                to="/categories/20"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/2009/2009423.png"
-                  alt=""
-                />
-                แรม
-              </Link>
-              <Link
-                to="/categories/21"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/8840/8840552.png"
-                  alt=""
-                />
-                ฮาร์ดดิสก์ และ เอสเอสดี
-              </Link>
-              <Link
-                to="/categories/22"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/4501/4501314.png"
-                  alt=""
-                />
-                พาวเวอร์ซัพพลาย
-              </Link>
-              <Link
-                to="/categories/23"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/11361/11361006.png"
-                  alt=""
-                />
-                เคส
-              </Link>
-              <Link
-                to="/categories/24"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/14172/14172211.png"
-                  alt=""
-                />
-                ชุดระบายความร้อน
-              </Link>
-              <Link
-                to="/categories/25"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/3474/3474360.png"
-                  alt=""
-                />
-                จอมอนิเตอร์
-              </Link>
-              <Link
-                to="/categories/26"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/689/689392.png"
-                  alt=""
-                />
-                คียบอร์ด
-              </Link>
-              <Link
-                to="/categories/27"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/3249/3249525.png"
-                  alt=""
-                />
-                เมาส์
-              </Link>
-              <Link
-                to="/categories/28"
-                className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
-              >
-                <img
-                  className="w-8 bg-white rounded-lg inline-flex mr-3"
-                  src="https://cdn-icons-png.flaticon.com/512/686/686589.png"
-                  alt=""
-                />
-                เกมมิ่งเกียร์
-              </Link>
-            </div>
+           <div className="absolute left-0 mt-2 w-60 bg-white text-black shadow-lg rounded-lg z-50 max-h-[400px] overflow-y-auto">
+  <Link
+    to="/categories/15"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/12120/12120437.png"
+      alt=""
+    />
+    ซีพียู
+  </Link>
+  <Link
+    to="/categories/14"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/3870/3870550.png"
+      alt=""
+    />
+    เมนบอร์ด
+  </Link>
+  <Link
+    to="/categories/19"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/4703/4703571.png"
+      alt=""
+    />
+    การ์ดจอ
+  </Link>
+  <Link
+    to="/categories/20"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/2009/2009423.png"
+      alt=""
+    />
+    แรม
+  </Link>
+  <Link
+    to="/categories/21"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/8840/8840552.png"
+      alt=""
+    />
+    ฮาร์ดดิสก์ และ เอสเอสดี
+  </Link>
+  <Link
+    to="/categories/22"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/4501/4501314.png"
+      alt=""
+    />
+    พาวเวอร์ซัพพลาย
+  </Link>
+  <Link
+    to="/categories/23"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/11361/11361006.png"
+      alt=""
+    />
+    เคส
+  </Link>
+  <Link
+    to="/categories/24"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/14172/14172211.png"
+      alt=""
+    />
+    ชุดระบายความร้อน
+  </Link>
+  <Link
+    to="/categories/25"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/3474/3474360.png"
+      alt=""
+    />
+    จอมอนิเตอร์
+  </Link>
+  <Link
+    to="/categories/26"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/689/689392.png"
+      alt=""
+    />
+    คียบอร์ด
+  </Link>
+  <Link
+    to="/categories/27"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/3249/3249525.png"
+      alt=""
+    />
+    เมาส์
+  </Link>
+  <Link
+    to="/categories/28"
+    className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
+  >
+    <img
+      className="w-8 bg-white rounded-lg inline-flex mr-3"
+      src="https://cdn-icons-png.flaticon.com/512/686/686589.png"
+      alt=""
+    />
+    เกมมิ่งเกียร์
+  </Link>
+</div>
+
           )}
         </div>
       </div>
