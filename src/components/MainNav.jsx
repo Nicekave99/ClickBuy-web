@@ -7,7 +7,6 @@ const MainNav = () => {
   const carts = useClickbuyStore((s) => s.carts);
   const user = useClickbuyStore((s) => s.user);
   const logout = useClickbuyStore((s) => s.logout);
- const [isSticky, setIsSticky] = useState(false);
   const [openDropdown, setOpenDropdown] = useState({
     user: false,
     category: false,
@@ -49,29 +48,7 @@ const MainNav = () => {
     });
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) { // เมื่อเลื่อนลงมาเกิน 50px
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-     window.addEventListener('scroll', handleScroll);
-
-    // ทำความสะอาด listener เมื่อ Component ถูกทำลาย
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-  
-  useEffect(() => {
-    document.addEventListener("mousedown", closeDropdown);
-    return () => {
-      document.removeEventListener("mousedown", closeDropdown);
-    };
-  }, []);
+ 
 
  
   return (
@@ -224,7 +201,7 @@ const MainNav = () => {
               หมวดหมู่สินค้า
             </button>
             {openDropdown.category && (
-              <div className="absolute left-0 mt-2 w-60 bg-white text-black shadow-lg rounded-lg z-50">
+              <div className="left-0 mt-2 w-60 bg-white text-black shadow-lg rounded-lg z-50">
                 <Link
                   to="/categories/15"
                   className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
