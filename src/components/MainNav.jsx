@@ -199,7 +199,7 @@ const MainNav = () => {
             หมวดหมู่สินค้า
           </button>
           {openDropdown.category && (
-            <div className="absolute left-0 mt-2 w-60 bg-white text-black shadow-lg rounded-lg z-50">
+            <div className="left-0 mt-2 w-60 bg-white text-black shadow-lg rounded-lg z-50">
               <Link
                 to="/categories/15"
                 className="block px-4 py-2 hover:bg-gray-700 hover:text-red-500"
