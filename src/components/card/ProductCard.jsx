@@ -22,7 +22,7 @@ const ProductCard = ({ item }) => {
           <div>
             {item.images && item.images.length > 0 ? (
               <img
-                src={item.images[0].url}
+                src={item.images[0].url.replace("http://", "https://")}
                 alt={item.title}
                 className="rounded-md w-full h-48 
                           hover:scale-110 transition-all duration-200 ease-in-out"

@@ -8,6 +8,7 @@ const SearchResults = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get("query") || ""; // ดึงคำค้นหา
   const products = useClickbuyStore((state) => state.products);
+  const getProduct = useClickbuyStore((state) => state.getProduct);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState("default");
@@ -44,6 +45,12 @@ const SearchResults = () => {
     }, 300); // Simulating loading time
   };
 
+  useEffect(() => {
+    // Reset current page to 1 when search query changes
+    setCurrentPage(1);
+    getProduct(100);
+  }, [searchQuery]);
+
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Header */}
@@ -74,7 +81,9 @@ const SearchResults = () => {
 
       {/* Loading indicator */}
       {loading ? (
-        <p className="text-center text-gray-500">กำลังโหลด...</p>
+        <div className="flex justify-center items-center">
+          <p className="text-gray-500">กำลังโหลด...</p>
+        </div>
       ) : filteredProducts.length === 0 ? (
         <p className="text-center text-gray-500">
           ไม่พบสินค้าที่เกี่ยวข้องกับ "{searchQuery}"

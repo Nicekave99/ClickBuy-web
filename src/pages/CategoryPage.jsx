@@ -17,8 +17,8 @@ const CategoryPages = () => {
   const itemsPerPage = 12;
 
   useEffect(() => {
-    getCategory();
-    getProduct();
+    getCategory(100);
+    getProduct(100);
   }, [getCategory, getProduct]);
 
   useEffect(() => {

@@ -10,7 +10,7 @@ const Shop = () => {
   const itemsPerPage = 12;
 
   useEffect(() => {
-    getProduct();
+    getProduct(100);
   }, []);
 
   const totalPages = Math.ceil(products.length / itemsPerPage);
