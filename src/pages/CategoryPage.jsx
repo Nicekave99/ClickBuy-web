@@ -14,6 +14,7 @@ const CategoryPages = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOption, setSortOption] = useState("default");
   const [isLoading, setIsLoading] = useState(true);
   const itemsPerPage = 12;
 
@@ -42,9 +43,17 @@ const CategoryPages = () => {
           (!searchText ||
             product.name.toLowerCase().includes(searchText.toLowerCase()))
       );
-      setFilteredProducts(categoryProducts);
+
+      // การจัดเรียงสินค้า
+      const sortedProducts = [...categoryProducts].sort((a, b) => {
+        if (sortOption === "price-asc") return a.price - b.price;
+        if (sortOption === "price-desc") return b.price - a.price;
+        return 0; // Default sorting
+      });
+
+      setFilteredProducts(sortedProducts);
     }
-  }, [categoryId, products, searchText]);
+  }, [categoryId, products, searchText, sortOption]);
 
   // รีเซ็ตหน้า Pagination เมื่อข้อมูลที่กรองเปลี่ยน
   useEffect(() => {
@@ -77,7 +86,28 @@ const CategoryPages = () => {
                 สินค้าในหมวดหมู่:{" "}
                 {categories.find((cat) => String(cat.id) === String(categoryId))
                   ?.name || "ไม่ทราบ"}
+                <span className="text-sm text-gray-500">
+                  (จำนวน {filteredProducts.length} รายการ)
+                </span>
               </h1>
+
+              <div className="mb-4">
+                {/* เรียงลำดับสินค้า */}
+                <label htmlFor="sort" className="mr-2 text-gray-700">
+                  เรียงตาม:
+                </label>
+                <select
+                  id="sort"
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                  className="px-3 py-2 border rounded-md"
+                >
+                  <option value="default">เรียงลำดับ</option>
+                  <option value="price-asc">ราคาต่ำไปสูง</option>
+                  <option value="price-desc">ราคาสูงไปต่ำ</option>
+                </select>
+              </div>
+
               {currentProducts.length === 0 ? (
                 <p className="text-gray-500">ไม่มีสินค้าในหมวดหมู่นี้</p>
               ) : (
