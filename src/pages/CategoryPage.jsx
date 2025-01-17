@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "../components/card/ProductCard";
 import useClickbuyStore from "../store/clickbuy-store";
-import SearchFilter from "../components/card/SearchFilter";
 
 const CategoryPages = () => {
   const { categoryId } = useParams(); // ดึง categoryId จาก URL
@@ -72,76 +71,73 @@ const CategoryPages = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-50">
-      <div className="flex overflow-hidden w-full max-w-7xl">
-        {/* Sidebar */}
-
-        {/* Content */}
-        <main className="p-4 h-screen flex flex-col flex-1 overflow-y-auto">
-          {isLoading ? (
-            <p className="text-center text-gray-500">กำลังโหลดข้อมูล...</p>
-          ) : (
-            <>
-              <h1 className="text-2xl font-bold mb-4">
-                สินค้าในหมวดหมู่:{" "}
-                {categories.find((cat) => String(cat.id) === String(categoryId))
-                  ?.name || "ไม่ทราบ"}
-                <span className="text-sm text-gray-500">
-                  (จำนวน {filteredProducts.length} รายการ)
-                </span>
-              </h1>
-
-              <div className="mb-4">
-                {/* เรียงลำดับสินค้า */}
-                <label htmlFor="sort" className="mr-2 text-gray-700">
-                  เรียงตาม:
-                </label>
-                <select
-                  id="sort"
-                  value={sortOption}
-                  onChange={(e) => setSortOption(e.target.value)}
-                  className="px-3 py-2 border rounded-md"
-                >
-                  <option value="default">เรียงลำดับ</option>
-                  <option value="price-asc">ราคาต่ำไปสูง</option>
-                  <option value="price-desc">ราคาสูงไปต่ำ</option>
-                </select>
-              </div>
-
-              {currentProducts.length === 0 ? (
-                <p className="text-gray-500">ไม่มีสินค้าในหมวดหมู่นี้</p>
-              ) : (
-                <>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-                    {currentProducts.map((item) => (
-                      <ProductCard key={item.id} item={item} />
-                    ))}
-                  </div>
-
-                  {/* Pagination */}
-                  <div className="flex justify-center mt-6">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                      (page) => (
-                        <button
-                          key={page}
-                          onClick={() => paginate(page)}
-                          className={`px-3 py-2 mx-1 rounded-md ${
-                            page === currentPage
-                              ? "bg-blue-500 text-white"
-                              : "bg-gray-200 text-gray-700"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      )
-                    )}
-                  </div>
-                </>
-              )}
-            </>
-          )}
-        </main>
+    <div className="container mx-auto px-4 py-6">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-gray-800">
+          สินค้าในหมวดหมู่:{" "}
+          {categories.find((cat) => String(cat.id) === String(categoryId))
+            ?.name || "ไม่ทราบ"}
+          <span className="text-gray-600 text-sm">
+            {" "}
+            (จำนวน {filteredProducts.length} รายการ)
+          </span>
+        </h1>
+        <div>
+          <label htmlFor="sort" className="mr-2 text-gray-700">
+            เรียงตาม:
+          </label>
+          <select
+            id="sort"
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="px-3 py-2 border rounded-md"
+          >
+            <option value="default">เรียงลำดับ</option>
+            <option value="price-asc">ราคาต่ำไปสูง</option>
+            <option value="price-desc">ราคาสูงไปต่ำ</option>
+          </select>
+        </div>
       </div>
+
+      {/* Loading indicator */}
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <p className="text-gray-500">กำลังโหลด...</p>
+        </div>
+      ) : filteredProducts.length === 0 ? (
+        <p className="text-center text-gray-500">
+          ไม่มีสินค้าในหมวดหมู่นี้
+        </p>
+      ) : (
+        <>
+          {/* Product Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+            {currentProducts.map((item) => (
+              <ProductCard key={item.id} item={item} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center mt-6">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+              (page) => (
+                <button
+                  key={page}
+                  onClick={() => paginate(page)}
+                  className={`px-4 py-2 mx-1 rounded-lg shadow-md transition-colors ${
+                    page === currentPage
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                  }`}
+                >
+                  {page}
+                </button>
+              )
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };
