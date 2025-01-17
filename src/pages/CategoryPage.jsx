@@ -112,7 +112,7 @@ const CategoryPages = () => {
                 <p className="text-gray-500">ไม่มีสินค้าในหมวดหมู่นี้</p>
               ) : (
                 <>
-                  <div className="flex flex-wrap justify-stretch gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
                     {currentProducts.map((item) => (
                       <ProductCard key={item.id} item={item} />
                     ))}
